@@ -13,6 +13,11 @@ Rectangle {
     radius: 10
     color: _QmlInterface.pressed ? "red" : "black"
 
+    SimpleProgressBar {
+        x: -width/2
+        y: -height - 5
+    }
+
     Connections {
         target: _QmlInterface
         onPressedChanged: {
