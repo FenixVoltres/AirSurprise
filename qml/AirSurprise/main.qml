@@ -8,6 +8,7 @@ Rectangle {
     Keys.onEscapePressed: Qt.quit()
 
     LevelOne {
+        id: levelOne
         anchors.fill: parent
     }
 
@@ -23,7 +24,7 @@ Rectangle {
         color: "white"
     }
 
-    Component.onCompleted: {
-        console.log(objectName)
+    MousePointer {
+        id: mousePointer
     }
 }

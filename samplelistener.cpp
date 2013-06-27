@@ -19,7 +19,7 @@ SampleListener::SampleListener(const std::shared_ptr<FingerQMLInterface>& interf
 void SampleListener::onConnect (const Leap::Controller & controller)
 {
     Listener::onConnect(controller);
-    qDebug() << "test";
+    qDebug() << "onConnect";
 }
 
 void SampleListener::onFrame(const Controller &controller)
@@ -51,8 +51,8 @@ Finger SampleListener::leftFinger(const Controller &controller) const
 
 void SampleListener::sendFingerToQML(const PointerAdapter &pointer)
 {
-    qDebug() << "Pressed " << mHoldRecogniser.isPressed();
-    qDebug() << "Hold percentage " << mHoldRecogniser.holdPercentage();
+//    qDebug() << "Pressed " << mHoldRecogniser.isPressed();
+//    qDebug() << "Hold percentage " << mHoldRecogniser.holdPercentage();
 
     mQMLInterface->setPosition(pointer.pointerPosition());
     mQMLInterface->setHoldPercentage(mHoldRecogniser.holdPercentage());

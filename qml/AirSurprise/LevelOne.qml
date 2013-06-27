@@ -15,7 +15,6 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 10
 
-
         Repeater {
             model: 5;
             delegate: PlaceHolder {  }
@@ -24,26 +23,5 @@ Rectangle {
 
     Creature {
         id: creature1
-    }
-
-    Rectangle {
-        id: testRectangle
-
-        width: 75
-        height: 75
-
-        color: "green"
-
-        Rectangle {
-            radius: 10
-
-            width: 10
-            height: 10
-            anchors.centerIn: parent
-
-        }
-
-        x: _QmlInterface.position.x
-        y: _QmlInterface.position.y
     }
 }
