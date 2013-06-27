@@ -1,1 +1,6 @@
 AirSurprise.pro.user*
+/Leapd.lib
+/debug/
+/release/
+*Makefile*
+*.pdb
