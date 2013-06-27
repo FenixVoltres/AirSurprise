@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     viewer.engine()->rootContext()->setContextProperty("_QmlInterface", qmlInterface);
     viewer.setMainQmlFile(QStringLiteral("qml/AirSurprise/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);
-    viewer.showFullScreen();
+    viewer.showExpanded();
 
     return app.exec();
 }

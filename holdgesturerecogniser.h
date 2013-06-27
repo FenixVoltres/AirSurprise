@@ -6,6 +6,8 @@
 
 #include "leap/Leap.h"
 
+typedef std::chrono::time_point<std::chrono::system_clock> TimePoint;
+
 class HoldGestureRecogniser
 {
 public:
@@ -25,7 +27,7 @@ private:
     float mHoldPercentage;
 
     QPointF mStartPosition;
-    std::chrono::time_point<std::chrono::system_clock> mStartTime;
+    TimePoint mStartTime;
 };
 
 #endif // HOLDGESTURERECOGNISER_H

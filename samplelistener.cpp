@@ -22,8 +22,8 @@ void SampleListener::onFrame(const Controller &controller)
 {
     Listener::onFrame(controller);
 
-    qDebug() << "Frame hand " << controller.frame().hands().count();
-    qDebug() << "Frame fingers " << controller.frame().fingers().count();
+//    qDebug() << "Frame hand " << controller.frame().hands().count();
+//    qDebug() << "Frame fingers " << controller.frame().fingers().count();
 
     if(hasLeftFinger(controller))
     {
@@ -45,7 +45,7 @@ Finger SampleListener::leftFinger(const Controller &controller) const
 void SampleListener::sendFingerToQML(const Finger &finger)
 {
     QPointF pos(finger.tipPosition().x, finger.tipPosition().y);
-    qDebug() << pos.rx() << " " << pos.ry();
+//    qDebug() << pos.rx() << " " << pos.ry();
 
     mQMLInterface->setPosition(pos);
     mQMLInterface->setHoldPercentage(mHoldRecogniser.holdPercentage());
