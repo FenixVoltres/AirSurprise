@@ -18,7 +18,7 @@ Rectangle {
             horizontalCenter: parent.horizontalCenter
         }
 
-        text: "(" + _QmlInterface.position.x + ", " + _QmlInterface.position.y + ")"
+        text: "(" + Math.floor(_QmlInterface.position.x) + ", " + Math.floor(_QmlInterface.position.y) + ")"
         font.pointSize: 30
         color: "white"
     }
