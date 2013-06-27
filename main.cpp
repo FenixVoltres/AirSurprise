@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    Leap::Controller leapController;
     auto_ptr<FingerQMLInterface> qmlInterface(new FingerQMLInterface());
     auto_ptr<Listener> listener(new SampleListener(qmlInterface.get()));
-    Leap::Controller leapController;
 
     leapController.addListener(*listener);
 

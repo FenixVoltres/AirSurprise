@@ -2,6 +2,7 @@
 
 #include "samplelistener.h"
 #include "fingerqmlinterface.h"
+#include "holdgesturerecogniser.h"
 
 using namespace Leap;
 
@@ -25,21 +26,29 @@ void SampleListener::onFrame(const Controller &controller)
     qDebug() << "Frame fingers " << controller.frame().fingers().count();
 
     if(hasLeftFinger(controller))
-    {
-        Finger finger = leftFinger(controller);
-        QPointF pos(finger.tipPosition().x, finger.tipPosition().y);
+        sendFingerToQML(controller);
 
-        mQMLInterface->setPosition(pos);
-        qDebug() << pos.rx() << " " << pos.ry();
+    if(mHoldRecogniser.recognise(leftFinger(controller)))
+    {
+        mQMLInterface->setPressed(mHoldRecogniser.isPressed());
     }
 }
 
-bool SampleListener::hasLeftFinger(const Controller &controller)
+bool SampleListener::hasLeftFinger(const Controller &controller) const
 {
     return controller.frame().fingers().count() > 0;
 }
 
-Finger SampleListener::leftFinger(const Controller &controller)
+Finger SampleListener::leftFinger(const Controller &controller) const
 {
     return controller.frame().fingers().leftmost();
+}
+
+void SampleListener::sendFingerToQML(const Controller &controller)
+{
+    Finger finger = leftFinger(controller);
+    QPointF pos(finger.tipPosition().x, finger.tipPosition().y);
+
+    mQMLInterface->setPosition(pos);
+    qDebug() << pos.rx() << " " << pos.ry();
 }

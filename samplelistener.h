@@ -2,6 +2,7 @@
 #define SAMPLELISTENER_H
 
 #include "leap/Leap.h"
+#include "holdgesturerecogniser.h"
 
 class FingerQMLInterface;
 
@@ -15,11 +16,13 @@ protected:
     virtual void onFrame (const Leap::Controller & controller);
 
 private:
-    bool hasLeftFinger(const Leap::Controller &controller);
-    Leap::Finger leftFinger(const Leap::Controller &controller);
+    bool hasLeftFinger(const Leap::Controller &controller) const;
+    Leap::Finger leftFinger(const Leap::Controller &controller) const;
+    void sendFingerToQML(const Leap::Controller &controller);
 
 private:
     FingerQMLInterface* mQMLInterface;
+    HoldGestureRecogniser mHoldRecogniser;
 };
 
 #endif // SAMPLELISTENER_H
