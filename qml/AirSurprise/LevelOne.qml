@@ -34,6 +34,15 @@ Rectangle {
 
         color: "green"
 
+        Rectangle {
+            radius: 10
+
+            width: 10
+            height: 10
+            anchors.centerIn: parent
+
+        }
+
         x: _QmlInterface.position.x
         y: _QmlInterface.position.y
     }
