@@ -10,4 +10,20 @@ Rectangle {
     LevelOne {
         anchors.fill: parent
     }
+
+    Text {
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: 10
+            horizontalCenter: parent.horizontalCenter
+        }
+
+        text: "(" + _QmlInterface.position.x + ", " + _QmlInterface.position.y + ")"
+        font.pointSize: 30
+        color: "white"
+    }
+
+    Component.onCompleted: {
+        console.log(objectName)
+    }
 }
