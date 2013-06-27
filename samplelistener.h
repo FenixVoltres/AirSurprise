@@ -18,7 +18,7 @@ protected:
 private:
     bool hasLeftFinger(const Leap::Controller &controller) const;
     Leap::Finger leftFinger(const Leap::Controller &controller) const;
-    void sendFingerToQML(const Leap::Controller &controller);
+    void sendFingerToQML(const Leap::Finger &finger);
 
 private:
     FingerQMLInterface* mQMLInterface;
