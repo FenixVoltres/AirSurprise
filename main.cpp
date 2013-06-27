@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QtQuick2ApplicationViewer viewer;
 
     std::shared_ptr<FingerQMLInterface> qmlInterface(new FingerQMLInterface(&viewer));
-    SampleListener listener(qmlInterface);
+    SampleListener listener(&viewer, qmlInterface);
     viewer.setDelegate(&listener);
 
     Controller leapController;

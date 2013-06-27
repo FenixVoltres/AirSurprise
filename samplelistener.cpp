@@ -1,6 +1,8 @@
 #include <memory>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QQuickWindow>
+#include <QTimer>
 
 #include "samplelistener.h"
 #include "fingerqmlinterface.h"
@@ -9,17 +11,22 @@
 
 using namespace Leap;
 
-SampleListener::SampleListener(const std::shared_ptr<FingerQMLInterface>& interface) :
-    Listener(),
-    mQMLInterface(interface),
-    mKeyboardOverride(false)
+SampleListener::SampleListener(QQuickWindow* quickWindow,
+                               const std::shared_ptr<FingerQMLInterface>& qmlInterface) :
+    QObject(quickWindow),
+    mLeapConnected(false),
+    mKeyboardOverride(false),
+    mQMLInterface(qmlInterface)
 {
+    QTimer* timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerFired()));
+    timer->start(10);
 }
 
 void SampleListener::onConnect (const Leap::Controller & controller)
 {
     Listener::onConnect(controller);
-    qDebug() << "onConnect";
+    mLeapConnected = true;
 }
 
 void SampleListener::onFrame(const Controller &controller)
@@ -34,6 +41,19 @@ void SampleListener::onFrame(const Controller &controller)
 
     if(pointer.get())
     {
+        mHoldRecogniser.recognise(*pointer);
+        sendFingerToQML(*pointer);
+    }
+}
+
+void SampleListener::onTimerFired()
+{
+    if(mLeapConnected)
+        return;
+
+    if(mLastMouseEvent)
+    {
+        std::shared_ptr<PointerAdapter> pointer(new MousePointer(mLastMouseEvent));
         mHoldRecogniser.recognise(*pointer);
         sendFingerToQML(*pointer);
     }
@@ -71,4 +91,3 @@ void SampleListener::reactOnKeyPressed(QKeyEvent *event)
         mKeyboardOverride = !mKeyboardOverride;
     }
 }
-
