@@ -3,7 +3,7 @@
 #include "gestures/holdgesturerecogniser.h"
 
 #define START_MILIS_TREASHOLD 300
-#define FINISH_MILLIS_TREASHOLD 1200
+#define FINISH_MILLIS_TREASHOLD 800
 
 using namespace std;
 

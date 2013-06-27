@@ -1,28 +1,25 @@
 import QtQuick 2.0
 
-DropArea {
-    id: dragTarget
+Rectangle {
+    id: dropRectangle
+    width: 120; height: 250
 
-    property alias dropProxy: dragTarget
+    color: "green"
+    opacity: 0.3
 
-    width: 100
-    height: 100
-
-    Rectangle {
-        id: dropRectangle
-
-        color: "yellow"
-        anchors.fill: parent
-
-        states: [
-            State {
-                when: dragTarget.containsDrag
-                PropertyChanges {
-                    target: dropRectangle
-                    color: "grey"
-                }
+    states: [
+        State {
+            name: "greyed"
+            when: mousePointer.isDragging && mousePointer.isInside(dropRectangle)
+            PropertyChanges {
+                target: dropRectangle
+                color: "grey"
             }
-        ]
-    }
+        }
+    ]
 
+    onStateChanged: {
+        if (state === "greyed")
+            mousePointer.drop = dropRectangle
+    }
 }

@@ -4,9 +4,6 @@ Rectangle {
     width: 1024
     height: 640
 
-    focus: true
-    Keys.onEscapePressed: Qt.quit()
-
     LevelOne {
         id: levelOne
         anchors.fill: parent

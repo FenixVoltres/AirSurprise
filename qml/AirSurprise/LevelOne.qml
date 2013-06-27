@@ -4,16 +4,16 @@ import QtQuick.Layouts 1.0
 Rectangle {
     id: levelOne
 
-    gradient: Gradient {
-        GradientStop { position: 0.0; color: "white"; }
-        GradientStop { position: 1.0; color: "blue";  }
+    Image {
+        id: name
+        source: "../../img/commons/background_wall_green.png"
     }
 
     Grid {
         columns: 5
         anchors.margins: 5
         anchors.centerIn: parent
-        spacing: 10
+        spacing: 15
 
         Repeater {
             model: 5;
@@ -21,7 +21,8 @@ Rectangle {
         }
     }
 
-    Creature {
-        id: creature1
+    Repeater {
+        model: 5;
+        delegate: Creature {  }
     }
 }

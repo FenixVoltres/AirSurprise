@@ -8,7 +8,7 @@ Item {
     property int value: 0
     property color color: "#77B753"
 
-    width: 250; height: 23
+    width: 60; height: 15
     clip: true
 
     Rectangle {
@@ -17,7 +17,7 @@ Item {
         anchors.bottomMargin: 1
         anchors.rightMargin: 1
         color: "transparent"
-        border.width: 1
+        border.width: 2
         border.color: parent.color
     }
 
@@ -36,7 +36,7 @@ Item {
             left: parent.left
             top: parent.top
             bottom: parent.bottom
-            margins: 2
+            margins: 4
         }
         color: parent.color
     }

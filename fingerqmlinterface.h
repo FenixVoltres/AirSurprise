@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QPointF>
+#include <QDebug>
 
 class FingerQMLInterface : public QObject
 {
@@ -18,7 +19,7 @@ public:
     float holdPercentage() const { return mHoldPercentage; }
     void setHoldPercentage(float percent)
     {
-        if (mHoldPercentage - percent < 0.001)
+        if (abs(mHoldPercentage - percent) < 0.001)
             return;
 
         mHoldPercentage = percent;

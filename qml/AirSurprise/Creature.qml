@@ -2,15 +2,15 @@ import QtQuick 2.0
 
 //        onReleased: parent = tile.Drag.target !== null ? tile.Drag.target : root
 
-Rectangle {
+Image {
     id: tile
     objectName: "dragable"
 
-    width: 64; height: 64
+    width: 120; height: 250
     anchors.verticalCenter: parent.verticalCenter
     anchors.horizontalCenter: parent.horizontalCenter
 
-    color: "red"
+    source: "../../img/level_001/animal_00"+ (index+1) + ".png"
 
     states: State {
         name: "dragged"
