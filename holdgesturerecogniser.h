@@ -20,6 +20,12 @@ public:
     float holdPercentage() const { return mHoldPercentage; }
 
 private:
+    bool isStartTreasholdPassed(int milliseconds) const;
+    bool isFinishTreasholdPassed(int milliseconds) const;
+
+    void calculateHoldPercentage(int milliseconds);
+    void toggleGesture(const Leap::Finger& finger);
+
     float pointDistSqr(QPointF &p1, QPointF &p2);
 
 private:

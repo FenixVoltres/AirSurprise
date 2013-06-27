@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QKeyEvent>
 
 #include "samplelistener.h"
 #include "fingerqmlinterface.h"
@@ -8,7 +9,8 @@ using namespace Leap;
 
 SampleListener::SampleListener(FingerQMLInterface* interface) :
     Listener(),
-    mQMLInterface(interface)
+    mQMLInterface(interface),
+    mKeyboardOverride(false)
 {
 }
 
@@ -22,10 +24,12 @@ void SampleListener::onFrame(const Controller &controller)
 {
     Listener::onFrame(controller);
 
-//    qDebug() << "Frame hand " << controller.frame().hands().count();
-//    qDebug() << "Frame fingers " << controller.frame().fingers().count();
-
-    if(hasLeftFinger(controller))
+    if(mKeyboardOverride)
+    {
+//        mMouseHoldRecogniser.recognise(mLastMouseEvent);
+//        sendMouseToQML();
+    }
+    else if(hasLeftFinger(controller))
     {
         mHoldRecogniser.recognise(leftFinger(controller));
         sendFingerToQML(leftFinger(controller));
@@ -42,13 +46,41 @@ Finger SampleListener::leftFinger(const Controller &controller) const
     return controller.frame().fingers().leftmost();
 }
 
+void SampleListener::sendMouseToQML()
+{
+
+}
+
 void SampleListener::sendFingerToQML(const Finger &finger)
 {
-    QPointF pos(finger.tipPosition().x, finger.tipPosition().y);
-//    qDebug() << pos.rx() << " " << pos.ry();
+    QPointF pos(finger.stabilizedTipPosition().x, finger.stabilizedTipPosition().y);
+
+    pos.setX((pos.x() + 120) * (1024. / 240.));
+    pos.setY((200.-pos.y()) * (640./200.));
+
+    qDebug() << "Pressed " << mHoldRecogniser.isPressed();
+    qDebug() << "Hold percentage " << mHoldRecogniser.holdPercentage();
 
     mQMLInterface->setPosition(pos);
     mQMLInterface->setHoldPercentage(mHoldRecogniser.holdPercentage());
     mQMLInterface->setPressed(mHoldRecogniser.isPressed());
+}
+
+void SampleListener::reactOnMouseMoved(QMouseEvent *event)
+{
+//    if(!mKeyboardOverride)
+//        return;
+
+//    mQMLInterface->setPosition(event->pos());
+//    mQMLInterface->setHoldPercentage(0);
+//    mQMLInterface->setPressed(false);
+}
+
+void SampleListener::reactOnKeyPressed(QKeyEvent *event)
+{
+    if(event->modifiers() & Qt::KeyboardModifier::ShiftModifier)
+    {
+        mKeyboardOverride = !mKeyboardOverride;
+    }
 }
 

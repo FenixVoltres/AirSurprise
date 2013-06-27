@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 
     FingerQMLInterface *qmlInterface = new FingerQMLInterface(&viewer);
     SampleListener listener(qmlInterface);
+    viewer.setDelegate(&listener);
 
     Controller leapController;
     leapController.addListener(listener);

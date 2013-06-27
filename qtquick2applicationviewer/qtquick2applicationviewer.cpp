@@ -14,6 +14,8 @@
 #include <QtCore/QDir>
 #include <QtQml/QQmlEngine>
 
+#include "inputeventdelegate.h"
+
 class QtQuick2ApplicationViewerPrivate
 {
     QString mainQmlFile;
@@ -78,4 +80,21 @@ void QtQuick2ApplicationViewer::showExpanded()
 #else
     show();
 #endif
+}
+
+void QtQuick2ApplicationViewer::setDelegate(InputEventDelegate* delegate)
+{
+    mInputEventDelegate = delegate;
+}
+
+void QtQuick2ApplicationViewer::keyPressEvent(QKeyEvent *event)
+{
+    if(mInputEventDelegate)
+        mInputEventDelegate->reactOnKeyPressed(event);
+}
+
+void QtQuick2ApplicationViewer::mouseMoveEvent(QMouseEvent *event)
+{
+    if(mInputEventDelegate)
+        mInputEventDelegate->reactOnMouseMoved(event);
 }

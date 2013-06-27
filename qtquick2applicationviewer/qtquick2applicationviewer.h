@@ -13,6 +13,8 @@
 
 #include <QtQuick/QQuickView>
 
+class InputEventDelegate;
+
 class QtQuick2ApplicationViewer : public QQuickView
 {
     Q_OBJECT
@@ -24,9 +26,17 @@ public:
     void setMainQmlFile(const QString &file);
     void addImportPath(const QString &path);
 
+    void setDelegate(InputEventDelegate* delegate);
+
     void showExpanded();
 
+protected:
+    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
+
 private:
+
+    InputEventDelegate* mInputEventDelegate;
     class QtQuick2ApplicationViewerPrivate *d;
 };
 

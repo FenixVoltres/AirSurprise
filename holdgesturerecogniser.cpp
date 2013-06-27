@@ -2,12 +2,15 @@
 
 #include "holdgesturerecogniser.h"
 
-#define DEAD_ZONE 10
+#define DEAD_ZONE 100
+#define START_MILIS_TREASHOLD 300
+#define FINISH_MILLIS_TREASHOLD 1500
 
 using namespace std;
 
 HoldGestureRecogniser::HoldGestureRecogniser() :
-    mIsPressed(false)
+    mIsPressed(false),
+    mHoldPercentage(0.0)
 {
 }
 
@@ -18,16 +21,45 @@ bool HoldGestureRecogniser::recognise(const Leap::Finger& finger)
     {
         TimePoint actTime = chrono::system_clock::now();
         int elapsedMillis = chrono::duration_cast<chrono::milliseconds>(actTime - mStartTime).count();
+        mHoldPercentage = 0.0;
 
-        qDebug() << elapsedMillis;
+        if(isStartTreasholdPassed(elapsedMillis))
+            calculateHoldPercentage(elapsedMillis);
+
+        if(isFinishTreasholdPassed(elapsedMillis))
+            toggleGesture(finger);
+
     }
     else
     {
-        qDebug() << "Gesture broken";
         reset(finger);
     }
 
     return false;
+}
+
+bool HoldGestureRecogniser::isStartTreasholdPassed(int milliseconds) const
+{
+    return milliseconds > START_MILIS_TREASHOLD;
+}
+
+bool HoldGestureRecogniser::isFinishTreasholdPassed(int milliseconds) const
+{
+    return milliseconds > FINISH_MILLIS_TREASHOLD;
+}
+
+void HoldGestureRecogniser::calculateHoldPercentage(int milliseconds)
+{
+    mHoldPercentage = (float)((milliseconds - START_MILIS_TREASHOLD)) /
+            (float)((FINISH_MILLIS_TREASHOLD - START_MILIS_TREASHOLD));
+}
+
+void HoldGestureRecogniser::toggleGesture(const Leap::Finger& finger)
+{
+    reset(finger);
+
+    mIsPressed = !mIsPressed;
+    mHoldPercentage = 0.0;
 }
 
 void HoldGestureRecogniser::reset(const Leap::Finger& finger)

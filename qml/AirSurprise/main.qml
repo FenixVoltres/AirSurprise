@@ -1,8 +1,8 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: 640
-    height: 480
+    width: 1024
+    height: 640
 
     focus: true
     Keys.onEscapePressed: Qt.quit()
