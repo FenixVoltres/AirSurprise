@@ -13,7 +13,8 @@ QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    samplelistener.cpp
+    samplelistener.cpp \
+    fingerqmlinterface.cpp
 
 # Installation path
 # target.path =
@@ -28,7 +29,8 @@ OTHER_FILES += \
 HEADERS += \
     leap/LeapMath.h \
     leap/Leap.h \
-    samplelistener.h
+    samplelistener.h \
+    fingerqmlinterface.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lLeap
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lLeapd

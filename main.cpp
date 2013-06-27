@@ -1,9 +1,10 @@
 #include <QtGui/QGuiApplication>
 #include <memory>
-#include "qtquick2applicationviewer.h"
 
-#include "samplelistener.h"
 #include "leap/Leap.h"
+#include "samplelistener.h"
+#include "fingerqmlinterface.h"
+#include "qtquick2applicationviewer.h"
 
 using namespace Leap;
 using namespace std;
@@ -12,7 +13,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    auto_ptr<Listener> listener(new SampleListener());
+    auto_ptr<FingerQMLInterface> qmlInterface(new FingerQMLInterface());
+    auto_ptr<Listener> listener(new SampleListener(qmlInterface.get()));
     Leap::Controller leapController;
 
     leapController.addListener(*listener);
