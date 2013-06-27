@@ -4,16 +4,10 @@ Rectangle {
     width: 640
     height: 480
 
-    color: "green"
+    focus: true
+    Keys.onEscapePressed: Qt.quit()
 
-    Text {
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
-    }
-    MouseArea {
+    LevelOne {
         anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
     }
 }
