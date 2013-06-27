@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 
     QtQuick2ApplicationViewer viewer;
     viewer.setMainQmlFile(QStringLiteral("qml/AirSurprise/main.qml"));
+    viewer.setResizeMode(QQuickView::SizeRootObjectToView);
     viewer.showExpanded();
 
     return app.exec();
