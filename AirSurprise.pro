@@ -6,16 +6,13 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-# If your application uses the Qt Mobility libraries, uncomment the following
-# lines and add the respective components to the MOBILITY variable.
-# CONFIG += mobility
-# MOBILITY +=
-
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     samplelistener.cpp \
     fingerqmlinterface.cpp \
-    holdgesturerecogniser.cpp
+    gestures/holdgesturerecogniser.cpp \
+    gestures/fingerpointer.cpp \
+    gestures/mousepointer.cpp
 
 # Installation path
 # target.path =
@@ -32,7 +29,10 @@ HEADERS += \
     leap/Leap.h \
     samplelistener.h \
     fingerqmlinterface.h \
-    holdgesturerecogniser.h
+    gestures/holdgesturerecogniser.h \
+    gestures/fingerpointer.h \
+    gestures/pointeradapter.h \
+    gestures/mousepointer.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lLeap
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lLeapd

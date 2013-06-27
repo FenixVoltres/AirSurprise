@@ -1,13 +1,15 @@
+#include <memory>
 #include <QDebug>
 #include <QKeyEvent>
 
 #include "samplelistener.h"
 #include "fingerqmlinterface.h"
-#include "holdgesturerecogniser.h"
+#include "gestures/mousepointer.h"
+#include "gestures/fingerpointer.h"
 
 using namespace Leap;
 
-SampleListener::SampleListener(FingerQMLInterface* interface) :
+SampleListener::SampleListener(const std::shared_ptr<FingerQMLInterface>& interface) :
     Listener(),
     mQMLInterface(interface),
     mKeyboardOverride(false)
@@ -24,15 +26,16 @@ void SampleListener::onFrame(const Controller &controller)
 {
     Listener::onFrame(controller);
 
-    if(mKeyboardOverride)
-    {
-//        mMouseHoldRecogniser.recognise(mLastMouseEvent);
-//        sendMouseToQML();
-    }
+    std::shared_ptr<PointerAdapter> pointer;
+    if(mKeyboardOverride && mLastMouseEvent.get())
+        pointer.reset(new MousePointer(mLastMouseEvent));
     else if(hasLeftFinger(controller))
+        pointer.reset(new FingerPointer(leftFinger(controller)));
+
+    if(pointer.get())
     {
-        mHoldRecogniser.recognise(leftFinger(controller));
-        sendFingerToQML(leftFinger(controller));
+        mHoldRecogniser.recognise(*pointer);
+        sendFingerToQML(*pointer);
     }
 }
 
@@ -46,34 +49,19 @@ Finger SampleListener::leftFinger(const Controller &controller) const
     return controller.frame().fingers().leftmost();
 }
 
-void SampleListener::sendMouseToQML()
+void SampleListener::sendFingerToQML(const PointerAdapter &pointer)
 {
-
-}
-
-void SampleListener::sendFingerToQML(const Finger &finger)
-{
-    QPointF pos(finger.stabilizedTipPosition().x, finger.stabilizedTipPosition().y);
-
-    pos.setX((pos.x() + 120) * (1024. / 240.));
-    pos.setY((200.-pos.y()) * (640./200.));
-
     qDebug() << "Pressed " << mHoldRecogniser.isPressed();
     qDebug() << "Hold percentage " << mHoldRecogniser.holdPercentage();
 
-    mQMLInterface->setPosition(pos);
+    mQMLInterface->setPosition(pointer.pointerPosition());
     mQMLInterface->setHoldPercentage(mHoldRecogniser.holdPercentage());
     mQMLInterface->setPressed(mHoldRecogniser.isPressed());
 }
 
 void SampleListener::reactOnMouseMoved(QMouseEvent *event)
 {
-//    if(!mKeyboardOverride)
-//        return;
-
-//    mQMLInterface->setPosition(event->pos());
-//    mQMLInterface->setHoldPercentage(0);
-//    mQMLInterface->setPressed(false);
+    mLastMouseEvent.reset(new QMouseEvent(*event));
 }
 
 void SampleListener::reactOnKeyPressed(QKeyEvent *event)

@@ -1,12 +1,13 @@
 #include <QDebug>
 
-#include "holdgesturerecogniser.h"
+#include "gestures/holdgesturerecogniser.h"
 
-#define DEAD_ZONE 100
 #define START_MILIS_TREASHOLD 300
-#define FINISH_MILLIS_TREASHOLD 1500
+#define FINISH_MILLIS_TREASHOLD 1200
 
 using namespace std;
+
+const int HoldGestureRecogniser::sDeadZone = 200;
 
 HoldGestureRecogniser::HoldGestureRecogniser() :
     mIsPressed(false),
@@ -14,10 +15,10 @@ HoldGestureRecogniser::HoldGestureRecogniser() :
 {
 }
 
-bool HoldGestureRecogniser::recognise(const Leap::Finger& finger)
+bool HoldGestureRecogniser::recognise(const PointerAdapter &pointer)
 {
-    QPointF actPosition(finger.tipPosition().x, finger.tipPosition().y);
-    if(pointDistSqr(actPosition, mStartPosition) < DEAD_ZONE)
+    QPointF actPosition = pointer.pointerPosition();
+    if(pointDistSqr(actPosition, mStartPosition) < sDeadZone)
     {
         TimePoint actTime = chrono::system_clock::now();
         int elapsedMillis = chrono::duration_cast<chrono::milliseconds>(actTime - mStartTime).count();
@@ -27,15 +28,21 @@ bool HoldGestureRecogniser::recognise(const Leap::Finger& finger)
             calculateHoldPercentage(elapsedMillis);
 
         if(isFinishTreasholdPassed(elapsedMillis))
-            toggleGesture(finger);
+            toggleGesture(pointer);
 
     }
     else
     {
-        reset(finger);
+        reset(pointer);
     }
 
     return false;
+}
+
+void HoldGestureRecogniser::reset(const PointerAdapter& pointer)
+{
+    mStartTime = std::chrono::system_clock::now();
+    mStartPosition = pointer.pointerPosition();
 }
 
 bool HoldGestureRecogniser::isStartTreasholdPassed(int milliseconds) const
@@ -54,18 +61,12 @@ void HoldGestureRecogniser::calculateHoldPercentage(int milliseconds)
             (float)((FINISH_MILLIS_TREASHOLD - START_MILIS_TREASHOLD));
 }
 
-void HoldGestureRecogniser::toggleGesture(const Leap::Finger& finger)
+void HoldGestureRecogniser::toggleGesture(const PointerAdapter& pointer)
 {
-    reset(finger);
+    reset(pointer);
 
     mIsPressed = !mIsPressed;
     mHoldPercentage = 0.0;
-}
-
-void HoldGestureRecogniser::reset(const Leap::Finger& finger)
-{
-    mStartTime = std::chrono::system_clock::now();
-    mStartPosition = QPointF(finger.tipPosition().x, finger.tipPosition().y);
 }
 
 float HoldGestureRecogniser::pointDistSqr(QPointF &p1, QPointF &p2)

@@ -1,16 +1,18 @@
 #ifndef SAMPLELISTENER_H
 #define SAMPLELISTENER_H
 
+#include <memory>
+
 #include "leap/Leap.h"
 #include "inputeventdelegate.h"
-#include "holdgesturerecogniser.h"
+#include "gestures/holdgesturerecogniser.h"
 
 class FingerQMLInterface;
 
 class SampleListener : public Leap::Listener, public InputEventDelegate
 {
 public:
-    SampleListener(FingerQMLInterface *interface);
+    SampleListener(const std::shared_ptr<FingerQMLInterface>& interface);
 
     virtual void reactOnKeyPressed(QKeyEvent *event);
     virtual void reactOnMouseMoved(QMouseEvent *event);
@@ -21,16 +23,17 @@ protected:
 
 private:
     void sendMouseToQML();
-    void sendFingerToQML(const Leap::Finger &finger);
+    void sendFingerToQML(const PointerAdapter &pointer);
 
     bool hasLeftFinger(const Leap::Controller &controller) const;
     Leap::Finger leftFinger(const Leap::Controller &controller) const;
 
 private:
-    FingerQMLInterface* mQMLInterface;
+    bool mKeyboardOverride;
     HoldGestureRecogniser mHoldRecogniser;
 
-    bool mKeyboardOverride;
+    std::shared_ptr<FingerQMLInterface> mQMLInterface;
+    std::shared_ptr<QMouseEvent> mLastMouseEvent;
 };
 
 #endif // SAMPLELISTENER_H
