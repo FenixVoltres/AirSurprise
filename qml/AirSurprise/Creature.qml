@@ -3,6 +3,8 @@ import QtQuick 2.0
 Item {
     id: root
 
+    property alias color: tile.color
+
     width: 100; height: 100
 
     MouseArea {

@@ -25,4 +25,16 @@ Rectangle {
     Creature {
         id: creature1
     }
+
+    Rectangle {
+        id: testRectangle
+
+        width: 75
+        height: 75
+
+        color: "green"
+
+        x: _QmlInterface.position.x
+        y: _QmlInterface.position.y
+    }
 }
