@@ -12,7 +12,8 @@ QML_IMPORT_PATH =
 # MOBILITY +=
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    samplelistener.cpp
 
 # Installation path
 # target.path =
@@ -20,3 +21,20 @@ SOURCES += main.cpp
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
+
+OTHER_FILES += \
+    leap/Leap.i
+
+HEADERS += \
+    leap/LeapMath.h \
+    leap/Leap.h \
+    samplelistener.h
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lLeap
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lLeapd
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/Leap.lib
+else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/Leapd.lib
