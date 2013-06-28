@@ -3,8 +3,6 @@ import QtQuick.Layouts 1.0
 
 Rectangle {
     id: mainMenu
-    width: 100
-    height: 62
 
     Image {
         id: background
@@ -12,30 +10,12 @@ Rectangle {
         source: "../../img/commons/background_wall_red.png"
     }
 
-    Image{
-        id: logo
-        width: 375
-        height: 275
+    Mascot {
 
-        anchors.top: parent.top
-        anchors.topMargin: 60
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        source: "../../img/lobby/lobby_logo_crayon_castle.png"
     }
 
-    Image
-    {
-        id: character
-        width: 280
-        height: 380
+    Logo {
 
-        anchors.top: parent.top
-        anchors.topMargin: 175
-        anchors.right: parent.right
-        anchors.rightMargin: 60
-
-        source: "../../img/commons/lobby_mascot.png"
     }
 
     MenuButton{
