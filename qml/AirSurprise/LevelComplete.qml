@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: levelCompleted
+    id: levelComplete
 
     Image {
         id: background
@@ -14,11 +14,17 @@ Rectangle {
     }
 
     Logo {
+        width: 430
+        height: 255
 
+        source: "../../img/level_complete/text_level_complete.png"
     }
 
     Grid {
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: 150
+
+        anchors.horizontalCenter: parent.horizontalCenter;
 
         Repeater {
             model: 3
@@ -27,6 +33,16 @@ Rectangle {
                 height:130
                 source: "../../img/level_complete/icon_star_full.png"
             }
+        }
+    }
+
+    MenuButton {
+        foregroundImage: "../../img/ui/ui_btn_icon_big_restart.png"
+        backgroundImage: "../../img/ui/ui_btn_circle_big.png"
+
+        function clickCallback()
+        {
+            world.state = "menu"
         }
     }
 }

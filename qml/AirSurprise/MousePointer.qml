@@ -20,7 +20,7 @@ Rectangle {
     {
         mousePointer.interactionEnabled = false;
         var object = activeScreenChild()
-        if(object == null)
+        if(!object)
             return
 
         if(object.objectName === "pressable" ||
@@ -29,6 +29,7 @@ Rectangle {
         {
             mousePointer.interactionEnabled = true;
         }
+
     }
 
     SimpleProgressBar {
@@ -62,6 +63,8 @@ Rectangle {
             object = mainMenu.childAt(mousePointer.x, mousePointer.y)
         if(world.state === "level")
             object = levelOne.childAt(mousePointer.x, mousePointer.y)
+        if(world.state === "levelComplete")
+            object = levelComplete.childAt(mousePointer.x, mousePointer.y)
 
         return object
     }
@@ -69,7 +72,6 @@ Rectangle {
     function startDrag() {
 
         var object = activeScreenChild();
-        console.log(object)
 
 		if ( !object )
             return false

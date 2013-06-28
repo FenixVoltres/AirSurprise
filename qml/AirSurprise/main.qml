@@ -9,7 +9,7 @@ Rectangle {
     Keys.onEscapePressed: Qt.quit()
 
     LevelComplete {
-        id: levelCompleted
+        id: levelComplete
         anchors.fill: parent
     }
 
@@ -30,19 +30,19 @@ Rectangle {
             name: "menu"
             PropertyChanges { target: mainMenu; opacity: 1.0 }
             PropertyChanges { target: levelOne; opacity: 0.0 }
-            PropertyChanges { target: levelCompleted; opacity: 0.0 }
+            PropertyChanges { target: levelComplete; opacity: 0.0 }
         },
         State {
             name: "level"
             PropertyChanges { target: mainMenu; opacity: 0.0 }
             PropertyChanges { target: levelOne; opacity: 1.0 }
-            PropertyChanges { target: levelCompleted; opacity: 0.0 }
+            PropertyChanges { target: levelComplete; opacity: 0.0 }
         },
         State {
             name: "levelComplete"
             PropertyChanges { target: mainMenu; opacity: 0.0 }
             PropertyChanges { target: levelOne; opacity: 0.0 }
-            PropertyChanges { target: levelCompleted; opacity: 1.0 }
+            PropertyChanges { target: levelComplete; opacity: 1.0 }
         }
 
     ]
@@ -52,12 +52,22 @@ Rectangle {
                 to: "level"
                 NumberAnimation { target: mainMenu; properties: "opacity"; duration: 800}
                 NumberAnimation { target: levelOne; properties: "opacity"; duration: 800}
+                NumberAnimation { target: levelComplete; properties: "opacity"; duration: 800}
             },
             Transition {
                 to: "menu"
                 NumberAnimation { target: mainMenu; properties: "opacity"; duration: 800}
                 NumberAnimation { target: levelOne; properties: "opacity"; duration: 800}
+                NumberAnimation { target: levelComplete; properties: "opacity"; duration: 800}
+            },
+
+            Transition {
+            to: "levelComplete"
+                NumberAnimation { target: mainMenu; properties: "opacity"; duration: 800}
+                NumberAnimation { target: levelOne; properties: "opacity"; duration: 800}
+                NumberAnimation { target: levelComplete; properties: "opacity"; duration: 800}
             }
+
          ]
 
     state: "menu"

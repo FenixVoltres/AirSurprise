@@ -39,6 +39,11 @@ Rectangle {
 
             opacity: 1 - (0.7 * (index < 2))
             enabled: index >= 2
+
+            function clickCallback()
+            {
+                world.state = "level"
+            }
         }
     }
 }
