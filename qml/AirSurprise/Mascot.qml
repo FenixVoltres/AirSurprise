@@ -6,8 +6,8 @@ Image
     width: 280
     height: 380
 
-    anchors.top: parent.top
-    anchors.topMargin: 175
+    anchors.bottom: parent.bottom
+    anchors.bottomMargin: 80
     anchors.right: parent.right
     anchors.rightMargin: 60
 
