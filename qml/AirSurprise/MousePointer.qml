@@ -37,7 +37,9 @@ Rectangle {
     }
 
     function startDrag() {
-        var object = levelOne.childAt(mousePointer.x, mousePointer.y)
+        var object = mainMenu.childAt(mousePointer.x, mousePointer.y)
+        if(world.state === "level")
+            object = levelOne.childAt(mousePointer.x, mousePointer.y)
 
         if ( !object )
             return false
@@ -57,6 +59,11 @@ Rectangle {
                 progressBar.z = drag.z + 2
                 return true
             }
+        }
+
+        if(object &&
+                object.objectName === "pressable") {
+            object.clickCallback()
             return false
         }
 

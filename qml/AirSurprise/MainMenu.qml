@@ -36,26 +36,30 @@ Rectangle {
         anchors.rightMargin: 60
 
         source: "../../img/commons/lobby_mascot.png"
-
     }
 
-    Grid {
-        columns: 3
-        anchors.margins: 5
-        anchors.left: parent.left
-        anchors.leftMargin: 70
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 80
-        spacing: 85
+    MenuButton{
+        width: 90
+        height: 90
 
-        Repeater {
-            model: 3;
-            delegate: MenuButton {
-                foregroundImage: "../../img/ui/ui_btn_icon_menu_00" + (index + 1) + ".png"
-            }
+        foregroundImage: "../../img/ui/ui_btn_icon_small_help.png"
+    }
+
+    Repeater {
+        model: 3;
+        delegate: MenuButton {
+            foregroundImage: "../../img/ui/ui_btn_icon_menu_00" + (index + 1) + ".png"
+            backgroundImage: "../../img/ui/ui_btn_circle_big.png"
+
+            anchors.left: parent.left
+            anchors.leftMargin: 70 + (index * 200)
+
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 90
+
+            opacity: 1 - (0.7 * (index < 2))
+            enabled: index >= 2
         }
     }
-
-
 }
 
