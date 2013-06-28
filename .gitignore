@@ -1,5 +1,5 @@
 AirSurprise.pro.user*
-/Leapd.lib
+*.lib
 /debug/
 /release/
 *Makefile*

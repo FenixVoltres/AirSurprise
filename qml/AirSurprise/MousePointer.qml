@@ -39,14 +39,27 @@ Rectangle {
     function startDrag() {
         var object = levelOne.childAt(mousePointer.x, mousePointer.y)
 
-        console.log(object)
+        if ( !object )
+            return false
 
-        if (object && object.objectName === "dragable") {
+//        console.log(object)
+
+        if (object.objectName === "dragable") {
             drag = object
             drag.state = "dragged"
             progressBar.z = drag.z + 2
             return true
+        } else if (object.objectName === "holder") {
+            if (object.creature) {
+                drag = object.creature
+                object.creature = 0
+                drag.state = "dragged"
+                progressBar.z = drag.z + 2
+                return true
+            }
+            return false
         }
+
         return false
     }
 
@@ -55,10 +68,10 @@ Rectangle {
         if ( !drag )
             return
 
-        console.log(drag)
-
         drag.state = ""
         drag.parent = drop
+        drag.lastHolderIndex = drop.itemIndex
+        drop.creature = drag
     }
 
     function isInside(obj) {

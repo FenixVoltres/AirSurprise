@@ -6,6 +6,8 @@ Image {
     id: tile
     objectName: "dragable"
 
+    property int lastHolderIndex
+
     width: 120; height: 250
     anchors.verticalCenter: parent.verticalCenter
     anchors.horizontalCenter: parent.horizontalCenter

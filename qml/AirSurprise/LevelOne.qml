@@ -1,28 +1,108 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import "PlaceHolderScript.js" as Script
 
 Rectangle {
     id: levelOne
 
+    anchors.fill: parent
+
     Image {
         id: name
         source: "../../img/commons/background_wall_green.png"
+        anchors.fill: parent
+        fillMode: Image.Stretch
     }
 
-    Grid {
-        columns: 5
-        anchors.margins: 5
-        anchors.centerIn: parent
-        spacing: 15
+    Repeater {
+        model: 5
+        delegate: PlaceHolder {
+            id: placeHolder
+            itemIndex: index
+            anchors {
+                bottom: parent.bottom
+//                bottomMargin: parent.height * 0.25
+            }
+            x: parent.width*0.17 + index * parent.width* 0.13
 
-        Repeater {
-            model: 5;
-            delegate: PlaceHolder {  }
+            Component.onCompleted: Script.placeHolders.push(placeHolder)
         }
     }
 
     Repeater {
         model: 5;
         delegate: Creature {  }
+    }
+
+    function reorder(index, fromLeft) {
+        if ( fromLeft ) {
+            if ( isAnySpaceToRight(index) )
+                moveItemsToRight(index)
+            else
+                moveItemsToLeft(index)
+        } else {
+            if ( isAnySpaceToLeft(index) )
+                moveItemsToLeft(index)
+            else
+                moveItemsToRight(index)
+        }
+    }
+
+    function moveItemsToLeft(index) {
+        var nextCreature
+        for (var i=index; i>=0; --i) {
+            var currentHolder       = Script.placeHolders[i]
+            var nextHolder          = Script.placeHolders[i-1]
+            var currentCreature     = currentHolder.creature
+
+            if (nextCreature) {
+                nextCreature.parent     = currentHolder
+                currentHolder.creature  = nextCreature
+            } else
+                currentHolder.creature  = null
+
+            if (!currentCreature || !nextHolder)
+                return
+
+            nextCreature            = currentCreature
+            nextCreature.parent     = levelOne
+        }
+    }
+
+    function moveItemsToRight(index) {
+        var nextCreature
+        for (var i=index; i<Script.placeHolders.length; ++i) {
+            var currentHolder       = Script.placeHolders[i]
+            var nextHolder          = Script.placeHolders[i+1]
+            var currentCreature     = currentHolder.creature
+
+            if (nextCreature) {
+                nextCreature.parent     = currentHolder
+                currentHolder.creature  = nextCreature
+            } else
+                currentHolder.creature  = null
+
+            if (!currentCreature || !nextHolder)
+                return
+
+            nextCreature            = currentCreature
+            nextCreature.parent     = levelOne
+        }
+    }
+
+    function isAnySpaceToLeft(index) {
+        var isAnySpace = false
+        for (var i=index-1; i>=0; --i)
+            if ( !Script.placeHolders[i].creature )
+                return true
+        return false
+    }
+
+    function isAnySpaceToRight(index) {
+        var isAnySpace = false
+        for (var i=index+1; i<Script.placeHolders.length; ++i)
+            if ( !Script.placeHolders[i].creature )
+                return true
+        return false
     }
 }
