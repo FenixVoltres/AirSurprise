@@ -1,9 +1,7 @@
 import QtQuick 2.0
 
-//        onReleased: parent = tile.Drag.target !== null ? tile.Drag.target : root
-
 Image {
-    id: tile
+    id: creature
     objectName: "dragable"
 
     property int lastHolderIndex
@@ -16,8 +14,15 @@ Image {
 
     states: State {
         name: "dragged"
-        when: mouseArea.drag.active
-        ParentChange { target: tile; parent: mousePointer }
-        AnchorChanges { target: tile; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined }
+        ParentChange { target: creature; parent: mousePointer }
+        AnchorChanges { target: creature; anchors.verticalCenter: undefined; anchors.horizontalCenter: undefined }
+    }
+
+    transitions: Transition {
+        to: "dragged"
+//        ScriptAction { script: console.log("asdasd")}
+        ParentAnimation {
+            NumberAnimation { properties: "x,y"; duration: 1000 }
+        }
     }
 }

@@ -21,18 +21,16 @@ Rectangle {
     }
 
     Grid {
+        id: grid
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 150
+        spacing: 30
 
         anchors.horizontalCenter: parent.horizontalCenter;
 
         Repeater {
             model: 3
-            delegate: Image{
-                width:130
-                height:130
-                source: "../../img/level_complete/icon_star_full.png"
-            }
+            delegate: Star {}
         }
     }
 

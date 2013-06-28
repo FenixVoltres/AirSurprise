@@ -6,6 +6,8 @@ Rectangle {
     id: levelOne
 
     property bool levelCompleted
+    property int seconds
+    property int maxTime: 15
 
     anchors.fill: parent
 
@@ -14,6 +16,48 @@ Rectangle {
         source: "../../img/commons/background_wall_green.png"
         anchors.fill: parent
         fillMode: Image.Stretch
+    }
+
+    BetterText {
+        text: "Reorder the creatures tallest right"
+        color: "white"
+        opacity: 0.7
+        font.pointSize: 40
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 50
+    }
+
+    BetterText {
+        id: timerText
+        text: displayText()
+        opacity: 0.7
+        font.pointSize: 70
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+            bottomMargin: 50
+            rightMargin: 50
+        }
+        color: calculateColor()
+
+        Behavior on color { ColorAnimation { duration: 100 } }
+    }
+
+    Timer {
+        id: timer
+        interval: 1000;
+        repeat: true;
+        running: false
+        onTriggered: {
+            ++seconds
+            pulseAnimation.running = true
+        }
+    }
+
+    SequentialAnimation {
+        id: pulseAnimation
+        NumberAnimation { target: timerText; property: "scale"; from: 1.0; to: 1.15; duration: 100 }
+        NumberAnimation { target: timerText; property: "scale"; from: 1.15; to: 1.0; duration: 100 }
     }
 
     Repeater {
@@ -37,6 +81,11 @@ Rectangle {
             id: creature
             Component.onCompleted: Script.creatures.push(creature)
         }
+    }
+
+    onLevelCompletedChanged: {
+        if (levelCompleted)
+            stopLevel()
     }
 
     function reorder(index, fromLeft) {
@@ -120,6 +169,39 @@ Rectangle {
             creature.parent = holder
             holder.creature = creature
         }
+    }
+
+    function startLevel() {
+        populateCreatures()
+        timer.running = true
+        seconds = 0;
+    }
+
+    function stopLevel() {
+        timer.running = false
+    }
+
+    function displayText() {
+        var onlyMinutes = Math.floor(seconds / 60)
+        var onlySeconds = seconds % 60;
+
+        return addZero(onlyMinutes) + ":" + addZero(onlySeconds)
+    }
+
+    function addZero(number) {
+        return (number < 10 ? "0" : "") + number
+    }
+
+    function calculateColor() {
+        if (seconds > maxTime)
+            return Qt.rgba(1.0, 0.0, 0.0, 1)
+
+        var progress = seconds / maxTime;
+        var r = Math.min(progress*2, 1.0);
+        var g = Math.min(2*(1-progress), 1.0);
+        var b = 0;
+
+        return Qt.rgba(r, g, b, 1)
     }
 
     function isLevelComplete() {

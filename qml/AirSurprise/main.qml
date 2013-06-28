@@ -80,7 +80,7 @@ Rectangle {
     transitions: [
             Transition {
                 to: "level"
-                ScriptAction { script: levelOne.populateCreatures(); }
+                ScriptAction { script: levelOne.startLevel(); }
                 NumberAnimation { target: mainMenu; properties: "opacity"; duration: 800}
                 NumberAnimation { target: levelOne; properties: "opacity"; duration: 800}
                 NumberAnimation { target: levelComplete; properties: "opacity"; duration: 800}
