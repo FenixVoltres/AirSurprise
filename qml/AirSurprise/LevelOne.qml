@@ -21,7 +21,7 @@ Rectangle {
             itemIndex: index
             anchors {
                 bottom: parent.bottom
-//                bottomMargin: parent.height * 0.25
+                bottomMargin: parent.height * 0.25
             }
             x: parent.width*0.17 + index * parent.width* 0.13
 
@@ -31,7 +31,10 @@ Rectangle {
 
     Repeater {
         model: 5;
-        delegate: Creature {  }
+        delegate: Creature {
+            id: creature
+            Component.onCompleted: Script.creatures.push(creature)
+        }
     }
 
     function reorder(index, fromLeft) {
@@ -105,4 +108,19 @@ Rectangle {
                 return true
         return false
     }
+
+    function populateCreatures() {
+        var order = Script.shuffle([0,1,2,3,4])
+
+        for(var i=0; i<Script.creatures.length; ++i) {
+            var creature    = Script.creatures[i]
+            var holder      = Script.placeHolders[order[i]]
+            creature.parent = holder
+            holder.creature = creature
+        }
+    }
+
+
+
+    Component.onCompleted: populateCreatures()
 }

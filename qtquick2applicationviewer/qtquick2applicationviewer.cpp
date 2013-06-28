@@ -89,8 +89,10 @@ void QtQuick2ApplicationViewer::setDelegate(InputEventDelegate* delegate)
 
 void QtQuick2ApplicationViewer::keyPressEvent(QKeyEvent *event)
 {
-    if(mInputEventDelegate)
+    if ( mInputEventDelegate )
         mInputEventDelegate->reactOnKeyPressed(event);
+
+    QQuickView::keyPressEvent(event);
 }
 
 void QtQuick2ApplicationViewer::mouseMoveEvent(QMouseEvent *event)

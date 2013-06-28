@@ -5,9 +5,11 @@ Rectangle {
     height: 640
     id: world
 
-    LevelOne
-    {
-        id: levelOne;
+    focus: true
+    Keys.onEscapePressed: Qt.quit()
+
+    LevelOne {
+        id: levelOne
         anchors.fill: parent
         opacity: 0.0
     }
