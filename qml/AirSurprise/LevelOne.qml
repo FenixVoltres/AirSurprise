@@ -123,17 +123,9 @@ Rectangle {
     }
 
     function isLevelComplete() {
-        for (var i=0; i<Script.creatures.length; ++i) {
-            console.log(Script.placeHolders[i].creature.source)
-        }
-
         for (var i=0; i<Script.creatures.length; ++i)
-            if (Script.placeHolders[i].creature !== Script.creatures[i]) {
-                console.log("false")
+            if (Script.placeHolders[i].creature !== Script.creatures[i])
                 return false
-            }
-
-        console.log("true")
         return true
     }
 

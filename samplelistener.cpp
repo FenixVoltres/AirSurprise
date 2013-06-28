@@ -13,10 +13,11 @@ using namespace Leap;
 
 SampleListener::SampleListener(QQuickWindow* quickWindow,
                                const std::shared_ptr<FingerQMLInterface>& qmlInterface) :
-    QObject(quickWindow),
-    mLeapConnected(false),
-    mKeyboardOverride(false),
-    mQMLInterface(qmlInterface)
+    QObject(quickWindow)
+    , mLeapConnected(false)
+    , mKeyboardOverride(false)
+    , mQMLInterface(qmlInterface)
+    , mQuickWindow(quickWindow)
 {
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerFired()));
@@ -37,7 +38,7 @@ void SampleListener::onFrame(const Controller &controller)
     if(mKeyboardOverride && mLastMouseEvent.get())
         pointer.reset(new MousePointer(mLastMouseEvent));
     else if(hasLeftFinger(controller))
-        pointer.reset(new FingerPointer(leftFinger(controller)));
+        pointer.reset(new FingerPointer(mQuickWindow, leftFinger(controller)));
 
     if(pointer.get())
     {

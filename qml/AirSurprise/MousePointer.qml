@@ -1,9 +1,9 @@
 import QtQuick 2.0
 
-Rectangle {
+Image {
     id: mousePointer
-    width: 20
-    height: 20
+    width: 32
+    height: 32
 
     property bool interactionEnabled: false
     property variant drag
@@ -13,24 +13,7 @@ Rectangle {
     x: _QmlInterface.position.x - width/2
     y: _QmlInterface.position.y - height/2
 
-    radius: 10
-    color: isDragging ? "yellow" : "black"
-
-    onXChanged:
-    {
-        mousePointer.interactionEnabled = false;
-        var object = activeScreenChild()
-        if(!object)
-            return
-
-        if(object.objectName === "pressable" ||
-                object.objectName === "dragable" ||
-                object.objectName === "holder")
-        {
-            mousePointer.interactionEnabled = true;
-        }
-
-    }
+    source: isDragging ? "../../img/ui/ui_cursor_grab.png" : "../../img/ui/ui_cursor_normal.png"
 
     SimpleProgressBar {
         id: progressBar
@@ -54,10 +37,19 @@ Rectangle {
             else
                 stopDrag()
         }
+
+        onPositionChanged: {
+            mousePointer.interactionEnabled = false;
+            var object = activeScreenChild()
+            if(!object)
+                return
+
+            if (object.objectName === "pressable" || object.objectName === "dragable" || object.objectName === "holder")
+                mousePointer.interactionEnabled = true;
+        }
     }
 
-    function activeScreenChild()
-    {
+    function activeScreenChild() {
         var object = null
         if(world.state === "menu")
             object = mainMenu.childAt(mousePointer.x, mousePointer.y)
@@ -90,8 +82,7 @@ Rectangle {
             }
         }
 
-        if(object &&
-                object.objectName === "pressable") {
+        if(object && object.objectName === "pressable") {
             object.clickCallback()
             return false
         }

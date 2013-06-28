@@ -34,6 +34,8 @@ private:
     bool hasLeftFinger(const Leap::Controller &controller) const;
     Leap::Finger leftFinger(const Leap::Controller &controller) const;
 
+    QQuickWindow *mQuickWindow;
+
 private:
     bool mLeapConnected;
     bool mKeyboardOverride;

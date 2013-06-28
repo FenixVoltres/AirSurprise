@@ -1,12 +1,16 @@
 import QtQuick 2.0
+import QtMultimedia 5.0
 
 Rectangle {
+    id: world
     width: 1024
     height: 640
-    id: world
+    state: "menu"
 
     focus: true
     Keys.onEscapePressed: Qt.quit()
+
+    FontLoader {  id: openSansFont; source: "./font/OpenSansCondBold.ttf" }
 
     LevelComplete {
         id: levelComplete
@@ -23,6 +27,31 @@ Rectangle {
         id: mainMenu
         anchors.fill: parent
         opacity: 0.0
+    }
+
+    BetterText {
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: 10
+            horizontalCenter: parent.horizontalCenter
+        }
+
+        text: "(" + Math.floor(_QmlInterface.position.x) + ", " + Math.floor(_QmlInterface.position.y) + ")"
+        font.pointSize: 30
+        color: "white"
+
+        opacity: 0.4
+    }
+
+    MousePointer {
+        id: mousePointer
+    }
+
+    Audio {
+        id: audio
+        loops: -1
+        autoPlay: true
+        source: "../../sounds/theme1.mp3"
     }
 
     states:[
@@ -70,24 +99,4 @@ Rectangle {
             }
 
          ]
-
-    state: "menu"
-
-    Text {
-        anchors {
-            bottom: parent.bottom
-            bottomMargin: 10
-            horizontalCenter: parent.horizontalCenter
-        }
-
-        text: "(" + Math.floor(_QmlInterface.position.x) + ", " + Math.floor(_QmlInterface.position.y) + ")"
-        font.pointSize: 30
-        color: "white"
-
-        opacity: 0.4
-    }
-
-    MousePointer {
-        id: mousePointer
-    }
 }
