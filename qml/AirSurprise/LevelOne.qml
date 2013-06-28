@@ -5,6 +5,8 @@ import "PlaceHolderScript.js" as Script
 Rectangle {
     id: levelOne
 
+    property bool levelCompleted
+
     anchors.fill: parent
 
     Image {
@@ -120,7 +122,20 @@ Rectangle {
         }
     }
 
+    function isLevelComplete() {
+        for (var i=0; i<Script.creatures.length; ++i) {
+            console.log(Script.placeHolders[i].creature.source)
+        }
 
+        for (var i=0; i<Script.creatures.length; ++i)
+            if (Script.placeHolders[i].creature !== Script.creatures[i]) {
+                console.log("false")
+                return false
+            }
+
+        console.log("true")
+        return true
+    }
 
     Component.onCompleted: populateCreatures()
 }
