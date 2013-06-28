@@ -19,6 +19,8 @@ Rectangle {
         text: "(" + Math.floor(_QmlInterface.position.x) + ", " + Math.floor(_QmlInterface.position.y) + ")"
         font.pointSize: 30
         color: "white"
+
+        opacity: 0.4
     }
 
     MousePointer {
