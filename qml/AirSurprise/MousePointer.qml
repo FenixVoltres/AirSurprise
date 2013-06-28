@@ -5,6 +5,7 @@ Rectangle {
     width: 20
     height: 20
 
+    property bool interactionEnabled: false
     property variant drag
     property variant drop
     property bool isDragging: false
@@ -15,13 +16,28 @@ Rectangle {
     radius: 10
     color: isDragging ? "yellow" : "black"
 
+    onXChanged:
+    {
+        mousePointer.interactionEnabled = false;
+        var object = activeScreenChild()
+        if(object == null)
+            return
+
+        if(object.objectName === "pressable" ||
+                object.objectName === "dragable" ||
+                object.objectName === "holder")
+        {
+            mousePointer.interactionEnabled = true;
+        }
+    }
+
     SimpleProgressBar {
         id: progressBar
 
         x: -width/2 +mousePointer.width/2
         y: -height - 5
 
-        visible: _QmlInterface.holdPercentage > 0.1
+        visible: _QmlInterface.holdPercentage > 0.1 && interactionEnabled
 
         value: _QmlInterface.holdPercentage * 100
     }
@@ -29,6 +45,9 @@ Rectangle {
     Connections {
         target: _QmlInterface
         onPressedChanged: {
+            if(!interactionEnabled)
+                return;
+
             if (!isDragging)
                 isDragging = startDrag()
             else
@@ -36,15 +55,24 @@ Rectangle {
         }
     }
 
-    function startDrag() {
-        var object = mainMenu.childAt(mousePointer.x, mousePointer.y)
+    function activeScreenChild()
+    {
+        var object = null
+        if(world.state === "menu")
+            object = mainMenu.childAt(mousePointer.x, mousePointer.y)
         if(world.state === "level")
             object = levelOne.childAt(mousePointer.x, mousePointer.y)
 
-        if ( !object )
-            return false
+        return object
+    }
 
-//        console.log(object)
+    function startDrag() {
+
+        var object = activeScreenChild();
+        console.log(object)
+
+		if ( !object )
+            return false
 
         if (object.objectName === "dragable") {
             drag = object
