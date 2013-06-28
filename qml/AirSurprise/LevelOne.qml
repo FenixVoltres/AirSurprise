@@ -128,6 +128,4 @@ Rectangle {
                 return false
         return true
     }
-
-    Component.onCompleted: populateCreatures()
 }
