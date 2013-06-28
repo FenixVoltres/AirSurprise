@@ -40,6 +40,7 @@ Rectangle {
         },
         State {
             name: "levelComplete"
+            when: levelOne.levelCompleted
             PropertyChanges { target: mainMenu; opacity: 0.0 }
             PropertyChanges { target: levelOne; opacity: 0.0 }
             PropertyChanges { target: levelCompleted; opacity: 1.0 }

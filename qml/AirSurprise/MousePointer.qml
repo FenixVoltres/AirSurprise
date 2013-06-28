@@ -67,9 +67,7 @@ Rectangle {
     }
 
     function startDrag() {
-
         var object = activeScreenChild();
-        console.log(object)
 
 		if ( !object )
             return false
@@ -107,6 +105,8 @@ Rectangle {
         drag.parent = drop
         drag.lastHolderIndex = drop.itemIndex
         drop.creature = drag
+
+        levelOne.levelCompleted = levelOne.isLevelComplete()
     }
 
     function isInside(obj) {
