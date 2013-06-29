@@ -1,4 +1,5 @@
 AirSurprise.pro.user*
+*.lib
 /debug/
 /release/
 *Makefile*
