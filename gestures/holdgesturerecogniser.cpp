@@ -1,6 +1,6 @@
 #include <QDebug>
 
-#include "gestures/holdgesturerecogniser.h"
+#include "holdgesturerecogniser.h"
 
 #define START_MILIS_TREASHOLD 300
 #define FINISH_MILLIS_TREASHOLD 500
