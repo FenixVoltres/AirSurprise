@@ -34,11 +34,11 @@ HEADERS += \
     gestures/pointeradapter.h \
     gestures/mousepointer.h
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libs/x86/ -lLeap
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libs/x86/ -lLeapd
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lLeap
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lLeapd
 
-INCLUDEPATH += $$PWD/libs/x86
-DEPENDPATH += $$PWD/libs/x86
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
 
-win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/libs/x86/Leap.lib
-else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/libs/x86/Leapd.lib
+win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/Leap.lib
+else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/Leapd.lib
