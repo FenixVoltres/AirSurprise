@@ -1,4 +1,4 @@
-#ifndef MOUSEPOINTER_H
+﻿#ifndef MOUSEPOINTER_H
 #define MOUSEPOINTER_H
 
 #include <memory>

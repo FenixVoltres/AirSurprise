@@ -24,5 +24,6 @@
         <file>img/ui/ui_btn_icon_small_help.png</file>
         <file>img/ui/ui_cursor_grab.png</file>
         <file>img/ui/ui_cursor_normal.png</file>
+        <file>sounds/theme1.mp3</file>
     </qresource>
 </RCC>

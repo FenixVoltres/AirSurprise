@@ -11,41 +11,17 @@
 
 //using namespace Leap;
 
-SampleListener::SampleListener(QQuickWindow* quickWindow,
-                               const std::shared_ptr<FingerQMLInterface>& qmlInterface) :
-    QObject(quickWindow)
+SampleListener::SampleListener(const std::shared_ptr<FingerQMLInterface>& qmlInterface,
+                               QObject* parent)
+    : QObject(parent)
     , mLeapConnected(false)
     , mKeyboardOverride(false)
     , mQMLInterface(qmlInterface)
-    , mQuickWindow(quickWindow)
 {
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerFired()));
     timer->start(10);
 }
-
-//void SampleListener::onConnect (const Leap::Controller & controller)
-//{
-//    Listener::onConnect(controller);
-//    mLeapConnected = true;
-//}
-
-//void SampleListener::onFrame(const Controller &controller)
-//{
-//    Listener::onFrame(controller);
-
-//    std::shared_ptr<PointerAdapter> pointer;
-//    if(mKeyboardOverride && mLastMouseEvent.get())
-//        pointer.reset(new MousePointer(mLastMouseEvent));
-//    else if(hasLeftFinger(controller))
-//        pointer.reset(new FingerPointer(mQuickWindow));//, leftFinger(controller)));
-
-//    if(pointer.get())
-//    {
-//        mHoldRecogniser.recognise(*pointer);
-//        sendFingerToQML(*pointer);
-//    }
-//}
 
 void SampleListener::onTimerFired()
 {
@@ -59,16 +35,6 @@ void SampleListener::onTimerFired()
         sendFingerToQML(*pointer);
     }
 }
-
-//bool SampleListener::hasLeftFinger(const Controller &controller) const
-//{
-//    return controller.frame().fingers().count() > 0;
-//}
-
-//Finger SampleListener::leftFinger(const Controller &controller) const
-//{
-//    return controller.frame().fingers().leftmost();
-//}
 
 void SampleListener::sendFingerToQML(const PointerAdapter &pointer)
 {

@@ -14,7 +14,7 @@ Window {
         id: world
         state: "menu"
 
-        //focus: true
+        focus: true
         Keys.onEscapePressed: Qt.quit()
 
         FontLoader {  id: openSansFont; source: "./font/OpenSansCondBold.ttf" }
