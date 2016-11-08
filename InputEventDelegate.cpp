@@ -28,7 +28,12 @@ bool InputEventDelegate::eventFilter(QObject *obj, QEvent *event)
         qDebug("Ate mouse move %d", keyEvent->x());
         mListener->reactOnMouseMoved(keyEvent);
     }
-
+    else if(event->type() == QEvent::TouchUpdate)
+    {
+        QTouchEvent* touchEvent = static_cast<QTouchEvent*>(event);
+        qDebug("Ate touch at %d, %d", touchEvent->touchPoints()[0].pos().x(), touchEvent->touchPoints()[0].pos().y());
+        mListener->reactOnTouch(touchEvent);
+    }
     // standard event processing
     return QObject::eventFilter(obj, event);
 }

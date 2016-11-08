@@ -28,9 +28,9 @@ void SampleListener::onTimerFired()
     if(mLeapConnected)
         return;
 
-    if(mLastMouseEvent)
+    if(!mLastMousePos.isNull())
     {
-        std::shared_ptr<PointerAdapter> pointer(new MousePointer(mLastMouseEvent));
+        std::shared_ptr<PointerAdapter> pointer(new MousePointer(mLastMousePos));
         mHoldRecogniser.recognise(*pointer);
         sendFingerToQML(*pointer);
     }
@@ -48,7 +48,8 @@ void SampleListener::sendFingerToQML(const PointerAdapter &pointer)
 
 void SampleListener::reactOnMouseMoved(QMouseEvent *event)
 {
-    mLastMouseEvent.reset(new QMouseEvent(*event));
+    mLastMousePos.setX(event->x());
+    mLastMousePos.setY(event->y());
 }
 
 void SampleListener::reactOnKeyPressed(QKeyEvent *event)
@@ -57,4 +58,9 @@ void SampleListener::reactOnKeyPressed(QKeyEvent *event)
     {
         mKeyboardOverride = !mKeyboardOverride;
     }
+}
+
+void SampleListener::reactOnTouch(QTouchEvent* event)
+{
+    mLastMousePos = event->touchPoints()[0].pos();
 }

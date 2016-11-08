@@ -10,12 +10,12 @@ class QMouseEvent;
 class MousePointer : public PointerAdapter
 {
 public:
-    MousePointer(std::shared_ptr<QMouseEvent>& event);
+    MousePointer(QPointF mousePosition);
 
     QPointF pointerPosition() const;
 
 private:
-    std::shared_ptr<QMouseEvent> mMouseEvent;
+    QPointF mMousePosition;
 };
 
 #endif // MOUSEPOINTER_H

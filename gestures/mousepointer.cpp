@@ -1,13 +1,13 @@
-#include <QMouseEvent>
+﻿#include <QMouseEvent>
 
 #include "mousepointer.h"
 
-MousePointer::MousePointer(std::shared_ptr<QMouseEvent> &event) :
-    mMouseEvent(event)
+MousePointer::MousePointer(QPointF mousePosition) :
+    mMousePosition(mousePosition)
 {
 }
 
 QPointF MousePointer::pointerPosition() const
 {
-    return mMouseEvent->pos();
+    return mMousePosition;
 }
