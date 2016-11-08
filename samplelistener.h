@@ -5,17 +5,17 @@
 #include <memory>
 
 //#include "leap/Leap.h"
-#include "inputeventdelegate.h"
+#include "InputEventDelegate.h"
 #include "gestures/holdgesturerecogniser.h"
 
 class QQuickWindow;
 class FingerQMLInterface;
 
-class SampleListener : public QObject, public InputEventDelegate
+class SampleListener : public QObject
 {
     Q_OBJECT
 public:
-    SampleListener(const std::shared_ptr<FingerQMLInterface>& qmlInterface, QObject* parent = nullptr);
+    SampleListener(FingerQMLInterface* qmlInterface, QObject* parent = nullptr);
 
     virtual void reactOnKeyPressed(QKeyEvent *event);
     virtual void reactOnMouseMoved(QMouseEvent *event);
@@ -32,7 +32,7 @@ private:
     bool mKeyboardOverride;
     HoldGestureRecogniser mHoldRecogniser;
 
-    std::shared_ptr<FingerQMLInterface> mQMLInterface;
+    FingerQMLInterface* mQMLInterface;
     std::shared_ptr<QMouseEvent> mLastMouseEvent;
 };
 

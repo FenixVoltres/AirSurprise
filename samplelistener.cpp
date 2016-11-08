@@ -11,7 +11,7 @@
 
 //using namespace Leap;
 
-SampleListener::SampleListener(const std::shared_ptr<FingerQMLInterface>& qmlInterface,
+SampleListener::SampleListener(FingerQMLInterface* qmlInterface,
                                QObject* parent)
     : QObject(parent)
     , mLeapConnected(false)

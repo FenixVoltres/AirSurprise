@@ -5,13 +5,12 @@
 #include <QQmlApplicationEngine>
 #include <QGuiApplication>
 #include <QQmlContext>
-#include <memory>
+
+#include "InputEventDelegate.h"
 
 #include "samplelistener.h"
 #include "fingerqmlinterface.h"
-#include "qtquick2applicationviewer.h"
 
-using namespace Leap;
 
 int main(int argc, char *argv[])
 {
@@ -19,12 +18,14 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     FingerQMLInterface qmlInterface;
+    SampleListener listener(&qmlInterface);
+    InputEventDelegate inputEventDelegate(&listener);
 
-    //SampleListener listener(qmlInterface);
-    //engine.setDelegate(&listener);
 
     engine.rootContext()->setContextProperty("_QmlInterface", &qmlInterface);
+
     engine.load(QUrl(QLatin1String("qrc:/qml/AirSurprise/main.qml")));
+    engine.rootObjects()[0]->installEventFilter(&inputEventDelegate);
 
     return app.exec();
 }

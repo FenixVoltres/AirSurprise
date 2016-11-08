@@ -3,15 +3,13 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
-qtcAddDeployment()
-
 SOURCES += main.cpp \
     samplelistener.cpp \
     fingerqmlinterface.cpp \
     gestures/fingerpointer.cpp \
     gestures/holdgesturerecogniser.cpp \
-    gestures/mousepointer.cpp
+    gestures/mousepointer.cpp \
+    InputEventDelegate.cpp
 
 # RESOURCES += qml.qrc
 
@@ -33,7 +31,8 @@ HEADERS += \
     gestures/fingerpointer.h \
     gestures/holdgesturerecogniser.h \
     gestures/mousepointer.h \
-    gestures/pointeradapter.h
+    gestures/pointeradapter.h \
+    InputEventDelegate.h
 
 RESOURCES += \
     qml.qrc \
