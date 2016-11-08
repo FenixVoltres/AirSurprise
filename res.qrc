@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/AirSurprise/font/OpenSansCondBold.ttf</file>
+        <file>img/commons/background_wall_green.png</file>
+        <file>img/commons/background_wall_red.png</file>
+        <file>img/commons/lobby_mascot.png</file>
+        <file>img/level_001/animal_001.png</file>
+        <file>img/level_001/animal_002.png</file>
+        <file>img/level_001/animal_003.png</file>
+        <file>img/level_001/animal_004.png</file>
+        <file>img/level_001/animal_005.png</file>
+        <file>img/level_complete/icon_star_empty.png</file>
+        <file>img/level_complete/icon_star_full.png</file>
+        <file>img/level_complete/text_level_complete.png</file>
+        <file>img/lobby/lobby_logo_crayon_castle.png</file>
+        <file>img/lobby/lobby_logo_ganymede.png</file>
+        <file>img/ui/ui_btn_circle_big.png</file>
+        <file>img/ui/ui_btn_circle_small.png</file>
+        <file>img/ui/ui_btn_horizontal_options.png</file>
+        <file>img/ui/ui_btn_icon_big_restart.png</file>
+        <file>img/ui/ui_btn_icon_menu_001.png</file>
+        <file>img/ui/ui_btn_icon_menu_002.png</file>
+        <file>img/ui/ui_btn_icon_menu_003.png</file>
+        <file>img/ui/ui_btn_icon_small_help.png</file>
+        <file>img/ui/ui_cursor_grab.png</file>
+        <file>img/ui/ui_cursor_normal.png</file>
+    </qresource>
+</RCC>

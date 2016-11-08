@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/AirSurprise/MousePointer.qml</file>
+        <file>qml/AirSurprise/BetterText.qml</file>
+        <file>qml/AirSurprise/Creature.qml</file>
+        <file>qml/AirSurprise/LevelComplete.qml</file>
+        <file>qml/AirSurprise/LevelOne.qml</file>
+        <file>qml/AirSurprise/Logo.qml</file>
+        <file>qml/AirSurprise/main.qml</file>
+        <file>qml/AirSurprise/MainMenu.qml</file>
+        <file>qml/AirSurprise/Mascot.qml</file>
+        <file>qml/AirSurprise/MenuButton.qml</file>
+        <file>qml/AirSurprise/PlaceHolder.qml</file>
+        <file>qml/AirSurprise/PlaceHolderScript.js</file>
+        <file>qml/AirSurprise/SimpleProgressBar.qml</file>
+        <file>qml/AirSurprise/Star.qml</file>
+    </qresource>
+</RCC>

@@ -1,5 +1,5 @@
-AirSurprise.pro.user*
 *.lib
+*.user
 *.dll
 /debug/
 /release/

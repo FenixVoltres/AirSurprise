@@ -1,4 +1,4 @@
-#include <memory>
+﻿#include <memory>
 #include <QDebug>
 #include <QKeyEvent>
 #include <QQuickWindow>
@@ -7,9 +7,9 @@
 #include "samplelistener.h"
 #include "fingerqmlinterface.h"
 #include "gestures/mousepointer.h"
-#include "gestures/fingerpointer.h"
+//#include "gestures/fingerpointer.h"
 
-using namespace Leap;
+//using namespace Leap;
 
 SampleListener::SampleListener(QQuickWindow* quickWindow,
                                const std::shared_ptr<FingerQMLInterface>& qmlInterface) :
@@ -24,28 +24,28 @@ SampleListener::SampleListener(QQuickWindow* quickWindow,
     timer->start(10);
 }
 
-void SampleListener::onConnect (const Leap::Controller & controller)
-{
-    Listener::onConnect(controller);
-    mLeapConnected = true;
-}
+//void SampleListener::onConnect (const Leap::Controller & controller)
+//{
+//    Listener::onConnect(controller);
+//    mLeapConnected = true;
+//}
 
-void SampleListener::onFrame(const Controller &controller)
-{
-    Listener::onFrame(controller);
+//void SampleListener::onFrame(const Controller &controller)
+//{
+//    Listener::onFrame(controller);
 
-    std::shared_ptr<PointerAdapter> pointer;
-    if(mKeyboardOverride && mLastMouseEvent.get())
-        pointer.reset(new MousePointer(mLastMouseEvent));
-    else if(hasLeftFinger(controller))
-        pointer.reset(new FingerPointer(mQuickWindow, leftFinger(controller)));
+//    std::shared_ptr<PointerAdapter> pointer;
+//    if(mKeyboardOverride && mLastMouseEvent.get())
+//        pointer.reset(new MousePointer(mLastMouseEvent));
+//    else if(hasLeftFinger(controller))
+//        pointer.reset(new FingerPointer(mQuickWindow));//, leftFinger(controller)));
 
-    if(pointer.get())
-    {
-        mHoldRecogniser.recognise(*pointer);
-        sendFingerToQML(*pointer);
-    }
-}
+//    if(pointer.get())
+//    {
+//        mHoldRecogniser.recognise(*pointer);
+//        sendFingerToQML(*pointer);
+//    }
+//}
 
 void SampleListener::onTimerFired()
 {
@@ -60,15 +60,15 @@ void SampleListener::onTimerFired()
     }
 }
 
-bool SampleListener::hasLeftFinger(const Controller &controller) const
-{
-    return controller.frame().fingers().count() > 0;
-}
+//bool SampleListener::hasLeftFinger(const Controller &controller) const
+//{
+//    return controller.frame().fingers().count() > 0;
+//}
 
-Finger SampleListener::leftFinger(const Controller &controller) const
-{
-    return controller.frame().fingers().leftmost();
-}
+//Finger SampleListener::leftFinger(const Controller &controller) const
+//{
+//    return controller.frame().fingers().leftmost();
+//}
 
 void SampleListener::sendFingerToQML(const PointerAdapter &pointer)
 {

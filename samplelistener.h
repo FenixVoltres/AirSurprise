@@ -1,10 +1,10 @@
-#ifndef SAMPLELISTENER_H
+﻿#ifndef SAMPLELISTENER_H
 #define SAMPLELISTENER_H
 
 #include <QObject>
 #include <memory>
 
-#include "leap/Leap.h"
+//#include "leap/Leap.h"
 #include "inputeventdelegate.h"
 #include "gestures/holdgesturerecogniser.h"
 
@@ -24,15 +24,15 @@ public slots:
     void onTimerFired();
 
 protected:
-    virtual void onConnect (const Leap::Controller &controller);
-    virtual void onFrame (const Leap::Controller & controller);
+    //virtual void onConnect (const Leap::Controller &controller);
+    //virtual void onFrame (const Leap::Controller & controller);
 
 private:
     void sendMouseToQML();
     void sendFingerToQML(const PointerAdapter &pointer);
 
-    bool hasLeftFinger(const Leap::Controller &controller) const;
-    Leap::Finger leftFinger(const Leap::Controller &controller) const;
+    //bool hasLeftFinger(const Leap::Controller &controller) const;
+    //Leap::Finger leftFinger(const Leap::Controller &controller) const;
 
     QQuickWindow *mQuickWindow;
 

@@ -17,6 +17,10 @@ SOURCES += main.cpp \
 # Installation path
 # target.path =
 
+macx {
+    QMAKE_MAC_SDK = macosx10.12
+}
+
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
